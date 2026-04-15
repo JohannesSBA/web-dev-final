@@ -2,7 +2,7 @@ import client from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import ChatInput from "@/app/components/ChatInput";
 import Messages from "@/app/components/Messages";
-import { MessageType, UserType } from "@/app/types/Message";
+import { MessageType } from "@/app/types/Message";
 
 export default async function Group({ params }: { params: { id: string } }) {
   const { id } = await params;
