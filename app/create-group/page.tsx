@@ -17,7 +17,6 @@ export default function CreateGroup() {
     if (response.ok) {
       router.push("/dashboard");
     } else {
-      console.log(response.body);
       console.error("Failed to create group");
     }
   };
