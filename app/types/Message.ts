@@ -1,12 +1,15 @@
 import { ObjectId } from "mongodb";
 
+/** Serialized chat row for Client Components and Pusher (matches group page + send). */
 export interface MessageType {
-  _id: ObjectId;
+  id: string;
+  /** Present on new rows; older DB docs may omit. */
+  messageId?: string;
   message: string;
   userId: string;
   userName?: string;
   groupId: string;
-  createdAt: Date;
+  createdAt: string;
 }
 
 export interface UserType {

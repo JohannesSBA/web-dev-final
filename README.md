@@ -1,3 +1,31 @@
+| CS-601       | Web Applicaiton Development |
+| ------------ | --------------------------- |
+| Contributors | Johannes Bekele,            |
+| Date         | 04/28/2026                  |
+| Course       | Spring                      |
+| Assignment # | Final Project               |
+
+# Assignment Overview
+
+- Full-stack application fro messaging dashboards using tools such as next.js, MongoDB, Auth.js, Pusher
+
+# Johannes Contributions
+
+- Created/Initialized routes (explicity handled backend logic and data) for `group/[id]`, `dashboard` and `create-group`
+- Created/Initialzed components `ChatInput.tsx` and `Messages.tsx`
+- Defined Types for Messages
+- Initialized MongoDB connection in `lib/mongodb.ts` for database operations.
+- Set up authentication using `@/auth` for route protection and session management.
+- Added `app/dashboard/page.tsx` which displays group chats owned by the authenticated user.
+- Developed a create group form in `app/create-group/page.tsx` for users to create new group chats (with name and description).
+- Created an API route at `app/api/create-group/route.ts` for handling creation of new groups with backend validation.
+- Created an API route at `app/api/chat/[id]/send/route.ts` for handling message sending within groups.
+- Created an API route at `app/api/chat/[id]/get/route.ts` for getting message within groups.
+- Configured Pusher in `lib/pusher-client.ts` and `lib/pusher-server.ts` for real-time communication and notifications (using environment variables).
+  - (Documentation used)[https://pusher.com/docs/channels/using_channels/client-api-overview/]
+- Managed group ownership and listing, ensuring groups are associated with their creators via user authentication.
+- Added `.env.local` setup for configuration of database, authentication, and Pusher credentials.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import client from "@/lib/mongodb";
 
-export default async function GET(
+export async function GET(
   request: NextRequest,
   context: { params: Promise<{ id: string }> },
 ) {

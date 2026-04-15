@@ -11,19 +11,41 @@ export default async function Group({ params }: { params: { id: string } }) {
     .collection("groups")
     .findOne({ _id: new ObjectId(id) });
 
-  const messages = (await client
+  const messages = await client
     .db("group-chat")
     .collection("chats")
     .find({ groupId: id })
     .sort({ createdAt: -1 })
-    .toArray()) as MessageType[];
+    .toArray();
+
+  const serializedMessages: MessageType[] = messages.map((message) => ({
+    id: message._id.toString(),
+    messageId: message.messageId as string | undefined,
+    message: message.message as string,
+    userId: message.userId as string,
+    userName: message.userName as string | undefined,
+    groupId: message.groupId as string,
+    createdAt: new Date(message.createdAt).toString(),
+  }));
+
+  const pusherKey =
+    process.env.PUSHER_APP_KEY ?? process.env.NEXT_PUBLIC_PUSHER_APP_KEY ?? "";
+  const pusherCluster =
+    process.env.PUSHER_CLUSTER ??
+    process.env.NEXT_PUBLIC_PUSHER_CLUSTER ??
+    "";
 
   return (
     <div>
       <h1>{group?.groupName}</h1>
       <p>{group?.groupDescription}</p>
       <ChatInput id={id} />
-      <Messages messages={messages} />
+      <Messages
+        initialMessages={serializedMessages}
+        id={id}
+        pusherKey={pusherKey}
+        pusherCluster={pusherCluster}
+      />
     </div>
   );
 }
