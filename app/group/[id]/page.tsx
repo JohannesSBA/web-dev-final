@@ -36,16 +36,20 @@ export default async function Group({ params }: { params: { id: string } }) {
     "";
 
   return (
-    <div>
-      <h1>{group?.groupName}</h1>
-      <p>{group?.groupDescription}</p>
-      <ChatInput id={id} />
-      <Messages
-        initialMessages={serializedMessages}
-        id={id}
-        pusherKey={pusherKey}
-        pusherCluster={pusherCluster}
-      />
+    <div className="min-h-screen w-full h-full flex justify-center items-stretch ">
+      <div className="w-full h-full flex flex-col justify-center items-center gap-6">
+        <h1 className="text-3xl font-bold mt-4">Group Name: {group?.groupName}</h1>
+        <p className="text-2xl">Description: {group?.groupDescription}</p>
+        <ChatInput id={id} />
+        <div className="w-full max-w-2xl bg-gray-900 border border-gray-800 rounded-lg p-4 flex flex-col gap-3">
+            <Messages
+                initialMessages={serializedMessages}
+                id={id}
+                pusherKey={pusherKey}
+                pusherCluster={pusherCluster}
+            />
+        </div>
+      </div>
     </div>
   );
 }

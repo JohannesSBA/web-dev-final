@@ -58,11 +58,16 @@ export default function Messages({
   }, [id, pusherKey, pusherCluster]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2 max-h-150 overflow-y-auto">
       {messages.map((message) => (
-        <div key={message.id} className="w-1/4 p-4 rounded-md">
-          <p>{message.message}</p>
-          <p>{message.userName ?? message.userId}</p>
+        <div key={message.id} className="w-full p-4 rounded-md">
+            <span className="font-bold ">
+                {message.userName ?? message.userId}:
+            </span>{" "}
+            <span className="break-words">
+                {message.message}
+            </span>
+          <p>{new Date(message.createdAt).toLocaleString()}</p>
         </div>
       ))}
     </div>
