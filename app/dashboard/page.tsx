@@ -24,12 +24,12 @@ export default async function Dashboard() {
         <p className="text-2xl font-bold">
             Browse through all the Group Chats Below
         </p>
-        <div className="w-1/2 h-full flex flex-col justify-center items-center gap-4 rounded-md shadow-md">
+        <div className="w-1/3 h-full flex flex-col justify-center items-center gap-4 rounded-md shadow-md">
           {groups.map((group) => (
             <a
               key={group._id.toString()}
               href={`/group/${group._id.toString()}`}
-              className="bg-gray-900 hover:bg-gray-700 text-white transition-all p-4 rounded-lg border border-gray-700 hover:border-gray-500"
+              className="bg-gray-900 hover:bg-gray-700 text-white transition-all p-4 rounded-lg border border-gray-700 hover:border-gray-500 w-full truncate"
             >
               {group.groupName}
             </a>
