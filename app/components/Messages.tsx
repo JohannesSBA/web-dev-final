@@ -10,11 +10,13 @@ export default function Messages({
   id,
   pusherKey,
   pusherCluster,
+  userId,
 }: {
   initialMessages: MessageType[];
   id: string;
   pusherKey: string;
   pusherCluster: string;
+  userId: string;
 }) {
   const [messages, setMessages] = useState<MessageType[]>(initialMessages);
 
@@ -60,13 +62,14 @@ export default function Messages({
   return (
     <div className="flex flex-col gap-2 max-h-150 overflow-y-auto">
       {messages.map((message) => (
-        <div key={message.id} className="w-full p-4 rounded-md">
-            <span className="font-bold ">
-                {message.userName ?? message.userId}:
-            </span>{" "}
-            <span className="break-words">
-                {message.message}
-            </span>
+        <div
+          key={message.id}
+          className={`w-1/2 p-4 rounded-md ${message.userId === userId ? "bg-blue-500 self-end" : "bg-gray-500 self-start"}`}
+        >
+          <span className="font-bold ">
+            {message.userName ?? message.userId}:
+          </span>{" "}
+          <span className="break-words">{message.message}</span>
           <p>{new Date(message.createdAt).toLocaleString()}</p>
         </div>
       ))}

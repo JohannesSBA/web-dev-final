@@ -19,14 +19,24 @@ export default function ChatInput({ id }: { id: string }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="w-1/2 flex gap-2 items-center justify-center p-4 rounded-lg border border-gray-800"
+    >
       <input
         type="text"
         placeholder="Enter your message"
+        required
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        className="w-full p-2 active:outline-none focus:outline-none"
       />
-      <button>Send</button>
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+      >
+        Send
+      </button>
     </form>
   );
 }
