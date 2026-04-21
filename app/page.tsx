@@ -3,10 +3,15 @@ import SignIn from "./components/auth/sign-in";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
+  if (process.env.DEV_BYPASS_AUTH === "true") {
+    redirect("/dashboard");
+  }
+
   const session = await auth();
   if (session) {
     redirect("/dashboard");
   }
+
   return (
     <div className="relative min-h-screen w-full bg-linear-to-b from-gray-950 via-gray-950 to-black text-white flex items-center justify-center">
       <main className="mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-16 sm:px-6">

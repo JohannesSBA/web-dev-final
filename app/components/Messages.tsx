@@ -3,7 +3,7 @@
 import { MessageType } from "@/app/types/Message";
 import { getPusherClient } from "@/lib/pusher-client";
 import type Pusher from "pusher-js";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Messages({
   initialMessages,
@@ -19,6 +19,11 @@ export default function Messages({
   userId: string;
 }) {
   const [messages, setMessages] = useState<MessageType[]>(initialMessages);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setMessages(initialMessages);
+  }, [initialMessages]);
 
   useEffect(() => {
     let cancelled = false;
@@ -29,6 +34,7 @@ export default function Messages({
     getPusherClient({ key: pusherKey, cluster: pusherCluster })
       .then((client) => {
         if (cancelled) return;
+
         pusherClient = client;
         const ch = client.subscribe(id);
         channel = ch;
@@ -38,7 +44,7 @@ export default function Messages({
             if (prev.some((m) => m.id === incoming.id)) {
               return prev;
             }
-            return [incoming, ...prev];
+            return [...prev, incoming];
           });
         };
 
@@ -50,29 +56,61 @@ export default function Messages({
 
     return () => {
       cancelled = true;
+
       if (channel && messageHandler) {
         channel.unbind("incoming-message", messageHandler);
       }
+
       if (pusherClient) {
         pusherClient.unsubscribe(id);
       }
     };
   }, [id, pusherKey, pusherCluster]);
 
+  useEffect(() => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  }, [messages]);
+
   return (
-    <div className="flex flex-col gap-2 max-h-150 overflow-y-auto">
-      {messages.map((message) => (
-        <div
-          key={message.id}
-          className={`w-1/2 p-4 rounded-md ${message.userId === userId ? "bg-blue-500 self-end" : "bg-gray-500 self-start"}`}
-        >
-          <span className="font-bold ">
-            {message.userName ?? message.userId}:
-          </span>{" "}
-          <span className="break-words">{message.message}</span>
-          <p>{new Date(message.createdAt).toLocaleString()}</p>
-        </div>
-      ))}
+    <div className="h-full min-h-[420px] lg:min-h-0">
+      <div
+        ref={scrollRef}
+        className="flex h-full flex-col gap-3 overflow-y-auto pr-2"
+      >
+        {messages.length === 0 ? (
+          <div className="flex h-full items-center justify-center rounded-xl border border-dashed border-gray-700 text-sm text-gray-400">
+            No messages yet. Start the conversation.
+          </div>
+        ) : (
+          messages.map((message) => {
+            const isCurrentUser = message.userId === userId;
+
+            return (
+              <div
+                key={message.id}
+                className={`max-w-[85%] rounded-2xl px-4 py-3 shadow-sm ${
+                  isCurrentUser
+                    ? "self-end bg-blue-500 text-white"
+                    : "self-start bg-gray-500 text-white"
+                }`}
+              >
+                <p className="mb-1 text-sm font-semibold">
+                  {message.userName ?? message.userId}
+                </p>
+
+                <p className="break-words text-sm leading-relaxed">
+                  {message.message}
+                </p>
+
+                <p className="mt-2 text-xs opacity-80">
+                  {new Date(message.createdAt).toLocaleString()}
+                </p>
+              </div>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 }

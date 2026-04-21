@@ -1,16 +1,18 @@
-import { auth } from "@/auth";
 import client from "@/lib/mongodb";
 import { pusherServer } from "@/lib/pusher-server";
 import { NextRequest, NextResponse } from "next/server";
+import { getAppSession } from "@/lib/dev-session";
 
 export async function POST(
   request: NextRequest,
   context: { params: Promise<{ id: string }> },
 ) {
-  const session = await auth();
+  const session = await getAppSession();
+
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
   const { id } = await context.params;
   const { message: messageText } = await request.json();
 
@@ -19,6 +21,7 @@ export async function POST(
   }
 
   const userId = session.user?.id;
+
   if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -32,7 +35,7 @@ export async function POST(
     userId,
     groupId: id,
     createdAt,
-    userName: session.user?.name,
+    userName: session.user?.name ?? "Local Dev User",
   });
 
   const payload = {
@@ -40,7 +43,7 @@ export async function POST(
     messageId,
     message: messageText,
     userId,
-    userName: session.user?.name ?? undefined,
+    userName: session.user?.name ?? "Local Dev User",
     groupId: id,
     createdAt: createdAt.toString(),
   };
