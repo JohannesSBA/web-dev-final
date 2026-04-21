@@ -35,7 +35,7 @@ export default async function Dashboard() {
           </p>
           <Link
             href="/create-group"
-            className="mt-8 inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-900/30 transition hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="mt-8 inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-900/30 transition hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
           >
             Create a new group chat
           </Link>
@@ -61,7 +61,7 @@ export default async function Dashboard() {
               <li key={group._id.toString()}>
                 <Link
                   href={`/group/${group._id.toString()}`}
-                  className="group block h-full rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-md transition hover:border-gray-600 hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+                  className="group block h-full rounded-2xl border border-gray-800 bg-gray-900/60 p-5 shadow-md transition hover:border-gray-600 hover:bg-gray-900 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 >
                   <p className="text-lg font-semibold text-white group-hover:text-blue-100 truncate">
                     {group.groupName as string}
