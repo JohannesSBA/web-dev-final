@@ -40,7 +40,7 @@ export default async function Group({ params }: { params: { id: string } }) {
     process.env.PUSHER_CLUSTER ?? process.env.NEXT_PUBLIC_PUSHER_CLUSTER ?? "";
 
   return (
-    <div className="min-h-screen w-full h-full flex justify-center items-stretch ">
+    <div className="relative min-h-screen w-full bg-linear-to-b from-gray-950 via-gray-950 to-black text-white">
       <div className="w-full h-full flex flex-col justify-center items-center gap-6">
         <h1 className="text-3xl font-bold mt-4">
           Group Name: {group?.groupName}
