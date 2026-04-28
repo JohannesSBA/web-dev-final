@@ -28,6 +28,16 @@
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+# Keith Contributions
+- Added styling to both home page and within the group
+- Added truncating for titles that are too long
+- Added matching color pallette to pages
+- Overrided original icon styling for our own pallette
+- Adjusted group chat list to feel more cohesive
+- Edited Message componenet to have more data
+- Refactored components to have a more nested structure, instead of default gaps
+
+
 ## Getting Started
 
 First, run the development server:
