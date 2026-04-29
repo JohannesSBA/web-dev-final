@@ -37,6 +37,14 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - Edited Message componenet to have more data
 - Refactored components to have a more nested structure, instead of default gaps
 
+# The Anh Contributions
+- Added navigation support with Back to Dashboard functionality across internal pages
+- Implemented an owner-restricted Delete Group management feature with permanent group/message removal
+- Created a live Participants panel inside each group chat based on active conversation users
+- Added Owner and Participants metadata tags to each group card on the Dashboard
+- Redesigned and enhanced the internal Group Chat page layout for improved usability and responsive full-screen behavior
+- Restyled and modernized the Create Group page to match the application’s unified chat theme
+- Extended group creation and chat messaging logic to support owner/participant metadata display
 
 ## Getting Started
 
